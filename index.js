@@ -67,8 +67,11 @@ app.delete('/delete/:id', (req, res) => {
         })
 })
 
+app.get('/',(req, res) => {
+    res.send("It's Working !!!")
+})
+
 
 });
-
 
 app.listen(process.env.PORT || port)
