@@ -31,7 +31,6 @@ app.get('/products', (req, res) => {
 })
 
 
-
 app.post('/addEvent', (req, res) => {
     const newEvent = req.body
     console.log('adding event', newEvent)
@@ -41,19 +40,20 @@ app.post('/addEvent', (req, res) => {
         })
 })
 
+app.get('/cart', (req, res) => {
+    boughtProducts.find({ email: req.query.email })
+        .toArray((err, documents) => {
+            res.send(documents)
+        })
+
+})
+
+
 app.post('/addToCart', (req, res) => {
     const newAddToCart = req.body
     boughtProducts.insertOne(newAddToCart)
         .then(result => {
             res.send(result.insertedCount > 0)
-        })
-
-})
-
-app.get('/cart', (req, res) => {
-    boughtProducts.find({ email: req.query.email })
-        .toArray((err, documents) => {
-            res.send(documents)
         })
 
 })
@@ -66,6 +66,7 @@ app.delete('/delete/:id', (req, res) => {
 
         })
 })
+
 
 app.get('/',(req, res) => {
     res.send("It's Working !!!")
